@@ -142,14 +142,6 @@ bool is_valid_command(ShellCommand* shell_command)
     }
 }
 
-int change_dir(char* path)
-{
-    if (strcmp(path, "~\0") == 0)
-        return chdir(getenv("HOME"));
-    else
-        return chdir(path);
-}
-
 void* execute_command(void* args)
 {
     CommandAndPathGroup* command_and_paths = (CommandAndPathGroup*) args;
@@ -169,7 +161,7 @@ void* execute_command(void* args)
 
     if (strcmp(shell_command->bin, "cd\0") == 0)
     {
-        return (void*) change_dir(shell_command->args[1]);
+        return (void*) chdir(shell_command->args[1]);
     }
 
     if (strcmp(shell_command->bin, "path\0") == 0)

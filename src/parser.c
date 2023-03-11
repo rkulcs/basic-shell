@@ -16,6 +16,9 @@ ArgsAndLastToken parse_args()
 
     while (token != NULL && (strcmp(token, "&") != 0) && (strcmp(token, ">") != 0))
     {
+        if (strcmp(token, "~") == 0)
+            token = getenv("HOME");
+            
         char* word = (char*) malloc(strlen(token) + 1);
         strcpy(word, token);
 
